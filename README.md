@@ -6,7 +6,7 @@ The daisea package utilizes derivative analysis, iterative spectral evaluation a
 The primary function is daisea (Derivative Analysis and Iterative Spectral Evaluation of Absorption) as described in the manuscript Deriving inherent optical properties from decomposition of hyperspectral non-water absorption (Grunert et al. 2019, https://doi.org/10.1016/j.rse.2019.03.004). We encourage users to refer to this document for a detailed description of steps along with a flow chart; additional information on function output can be found in this document as well.  As the main executable function, daisea utilizes a variety of custom sub-functions as well as the following Matlab Toolboxes: Curve Fitting Toolbox and Signal Processing Toolbox. Input spectra should be hyperspectral, ideally at a wavelength range of ≤ 5 nm. Spectral range should extend to approximately 350 nm and up to 690 nm or greater. All function files include a detailed description of required input variables.
 
 ## **Primary function**
-daisea
+**daisea**
 
 *Sub-functions*
 
