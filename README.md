@@ -165,19 +165,19 @@ Function models sixteen Gaussian curves.
 
 ## **How to use example spectra**
 
-for ii=1:length(example_spectra)
-	output(ii)=daisea(example_spectra(ii).at_nw,example_spectra(ii).wavelength,350,700);
-end
+	for ii=1:length(example_spectra)
+		output(ii)=daisea(example_spectra(ii).at_nw,example_spectra(ii).wavelength,350,700);
+	end
 
 ## **How to plot results**
 
-for ii=1:length(output)
-figure;
-plot(output(ii).lam,output(ii).at_nw,’--k’)
-hold on;
-plot(output(ii).lam,output(ii).agd_final_estimate,’-‘,’color’,[140 81 10]/255)
-plot(output(ii).lam, output(ii).agd_final_estimate+output(ii).aphy_final_estimate,’-‘,’color’,[35 139 69]/255)
-end
+	for ii=1:length(output)
+		figure;
+		plot(output(ii).lam,output(ii).at_nw,’--k’)
+		hold on;
+		plot(output(ii).lam,output(ii).agd_final_estimate,’-‘,’color’,[140 81 10]/255)
+		plot(output(ii).lam, output(ii).agd_final_estimate+output(ii).aphy_final_estimate,’-‘,’color’,[35 139 69]/255)
+	end
 
 ## **How to cite this package**
 This algorithm/package was released with an accompanying publication, Deriving inherent optical properties from decomposition of hyperspectral non-water absorption (Grunert et al. 2019, https://doi.org/10.1016/j.rse.2019.03.004). Please cite this paper when using this package for presentations, publications, etc.
