@@ -177,7 +177,7 @@ absorption=absorption(:);
 wavelength=wavelength(:);
 
 % Find wavelength interval from raw data
-lam_int=unique(diff(wavelength));
+lam_int=nanmean(unique(diff(wavelength)));
 
 % Get rid of NaNs
 wavelength=wavelength(~isnan(absorption));
@@ -202,7 +202,7 @@ if min(absorption)<0
 end
 
 % If wavelength interval is not consistent, fix
-lam_int2=unique(diff(wavelength));
+lam_int2=nanmean(unique(diff(wavelength)));
 fixme=false;
 if (length(lam_int)==1 && length(lam_int2)>1)
     fixme=true; % fix but use original wavelength interval
@@ -216,19 +216,16 @@ if any((~isnan(settings.wavelength_interval) | ~isempty(settings.wavelength_inte
     lam_int=settings.wavelength_interval;
 end
 if lam_int>5
-    fprintf('\nWARNING DAISEA: Wavelength interval is %0.2f nm. Data will be interpolated to the maximum allowable interval of 5 nm.',lam_int);
-    fixme=true;
-    lam_int=5;
+    error(['ERROR DAISEA: Wavelength interval is ' num2str(lam_int,'%0.2f') '. Maximum allowable interval is 5 nm.']);
 end
 % Put onto new grid
 if fixme
     if settings.notify
-        fprintf('\nWARNING DAISEA: Data are being interpolated to a %0.2f nm wavelength interval',lam_int);
-    end
+        fprintf('\nWARNING DAISEA: Data are being interpolated to %0.2f nm
     wavelength2=ceil(min(wavelength)):lam_int:floor(max(wavelength));
     absorption2=interp1(wavelength,absorption,wavelength2,'linear',NaN);
-    output.lam=wavelength2(:);
-    output.at_nw=absorption2(:);
+    output.lam=wavelength2;
+    output.at_nw=absorption2;
 else
     output.lam=wavelength;
     output.at_nw=absorption;
@@ -249,33 +246,29 @@ output.at_nw=output.at_nw(start_ind:stop_ind);
 %all wavelengths and wavelengths outside the chl-a peak region (410-480 nm)
 [junk,ind555]=min(abs(output.lam-555));
 if junk>5 && settings.notify
-    fprintf('\nWARNING DAISEA: Closest wavlenth to 555 nm is %0.2f nm away.',junk);
+    fprintf('\nWARNING DAISEA: Closest wavlenth to 555 nm is >5 nm away.');
 end
 [junk,ind680]=min(abs(output.lam-680));
 if junk>5 && settings.notify
-    fprintf('\nWARNING DAISEA: Closest wavlenth to 680 nm is %0.2f nm away.',junk);
+    fprintf('\nWARNING DAISEA: Closest wavlenth to 680 nm is >5 nm away.');
 end
 [junk,ind690]=min(abs(output.lam-690));
 if junk>5 && settings.notify
-    fprintf('\nWARNING DAISEA: Closest wavlenth to 690 nm is %0.2f nm away.',junk);
+    fprintf('\nWARNING DAISEA: Closest wavlenth to 690 nm is >5 nm away.');
 end
 [junk,ind350]=min(abs(output.lam-350));
 if junk>5 && settings.notify
-    fprintf('\nWARNING DAISEA: Closest wavlenth to 350 nm is %0.2f nm away.',junk);
+    fprintf('\nWARNING DAISEA: Closest wavlenth to 350 nm is >5 nm away.');
 end
 [junk,ind440]=min(abs(output.lam-440));
 if junk>5 && settings.notify
-    fprintf('\nWARNING DAISEA: Closest wavlenth to 440 nm is %0.2f nm away.',junk);
+    fprintf('\nWARNING DAISEA: Closest wavlenth to 440 nm is >5 nm away.');
 end
-[junk,ind400]=min(abs(output.lam-400));
+[junk,ind40]=min(abs(output.lam-400));
 if junk>5 && settings.notify
-    fprintf('\nWARNING DAISEA: Closest wavlenth to 400 nm is %0.2f nm away.',junk);
+    fprintf('\nWARNING DAISEA: Closest wavlenth to 400 nm is >5 nm away.');
 end
 clear junk
-if ind400==ind350 && settings.notify
-    fprintf('\nWARNING DAISEA: Closest wavelength to both 350 nm and 400 nm is %0.2f nm',output.lam(ind400));
-end
-    
 ratio=output.at_nw(ind555)/output.at_nw(ind680);
 
 %if the slope difference is greater than 0.0003, treat as a
@@ -468,7 +461,7 @@ else
 
         if phy(ind350)/phy(ind440) > 1.5
             
-            S=spectral_slope_nogauss_noK(phy,output.lam,start,output.lam(ind400),start);
+            S=spectral_slope_nogauss_noK(phy,output.lam,start,output.lam(ind400),start);            
             yy=cdom_model_lam0_noK(output.lam,S.a,S.s,start);    
             nyy=output.adg_model2+yy;
             
