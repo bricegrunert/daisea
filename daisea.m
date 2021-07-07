@@ -192,7 +192,7 @@ if min(absorption)<0
         case 'offset'
             absorption=absorption-min(absorption);
         case 'zero'
-            absorption(absorption)=0;
+            absorption(absorption<0)=0;
         case 'remove'
             wavelength=wavelength(absorption>0);
             absorption=absorption(absorption>0);
