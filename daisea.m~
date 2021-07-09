@@ -99,6 +99,7 @@ function output=daisea(absorption,wavelength,settings)
 %           model2_agd_lam0      = estimated agd at lam0 for adg_model2
 %           model2_lam0          = lam0 used for adg_model2
 %           Sgd_est2             = Sgd estimated for adg_model2
+%                                 relaxation
 %           final_model          = output from Gaussian decomposition of
 %                                  at_nw
 %           final_model_gof      = goodness of fit for final_model
