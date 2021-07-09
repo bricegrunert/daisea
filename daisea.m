@@ -147,6 +147,9 @@ else
     if ~isfield(settings,'wavelength_interval') || ischar(settings.wavelength_interval)
         settings.wavelength_interval=[];
     end
+    if ~isfield(settings,'notify') || ischar(settings.wavelength_interval)
+        settings.notify=true;
+    end
 end
 
 % Initialize structure
@@ -223,7 +226,7 @@ end
 % Put onto new grid
 if fixme
     if settings.notify
-        fprintf('\nWARNING DAISEA: Data are being interpolated to a %0.2f nm wavelength interval',lam_int);
+        fprintf('\nDAISEA: Data are being interpolated to a %0.2f nm wavelength interval',lam_int);
     end
     wavelength2=ceil(min(wavelength)):lam_int:floor(max(wavelength));
     absorption2=interp1(wavelength,absorption,wavelength2,'linear',NaN);
