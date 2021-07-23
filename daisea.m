@@ -1,4 +1,4 @@
-function output=daisea(absorption,wavelength,settings)
+function output=daisea(absorption,wavelength,varargin)
 
 % daisea
 %
@@ -39,12 +39,7 @@ function output=daisea(absorption,wavelength,settings)
 %                  not provided by user, defaults will be applied as
 %                  descirbed below. 
 %
-% Fields for settings structure:
-%    Note that all fields are optional. If a field is excluded from the
-%    structure, it will be set to the default. If a field is set to the
-%    empty set or NaN, it will also be set to the default. The user can
-%    change the defaults at the start of the code below. 
-% 
+% Optional name-pair arguments:% 
 %    notify             = true or false, print warnings to screen, default
 %                         is true
 %    minimum_wavelength = minimum wavelength considered (e.g. 300 nm),
@@ -127,29 +122,14 @@ function output=daisea(absorption,wavelength,settings)
 % negative values, assign start and stop lambda if needed
 
 % Create settings structure and check on user input
-if nargin==2 % defaults for settings structure
-    settings.notify              = true;
-    settings.minimum_wavelength  = min(wavelength);
-    settings.maximum_wavelength  = max(wavelength);
-    settings.negative_data       = 'offset'; % offset, zero or remove
-    settings.wavelength_interval = []; % allows user to specify wavelength interval for interpoltion of unevenly spaced data
-else
-    if ~isfield(settings,'minimum_wavelength') || isempty(settings.minimum_wavelength) || isnan(settings.minimum_wavelength) || ischar(settings.minimum_wavelength)
-        settings.minimum_wavelength  = min(wavelength);
-    end
-    if ~isfield(settings,'maximum_wavelength') || isempty(settings.maximum_wavelength) || isnan(settings.maximum_wavelength) || ischar(settings.maximum_wavelength)
-        settings.maximum_wavelength  = max(wavelength);
-    end
-    if ~isfield(settings,'negative_data') || isnumeric(settings.negative_data)
-        settings.negative_data='offset';
-    end
-    if ~isfield(settings,'wavelength_interval') || ischar(settings.wavelength_interval)
-        settings.wavelength_interval=[];
-    end
-    if ~isfield(settings,'notify') || ischar(settings.wavelength_interval)
-        settings.notify=true;
-    end
-end
+p=inputParser;
+addParameter(p,'notify',true,@(x) islogical(x));
+addParameter(p,'minimum_wavelength',min(wavelength),@(x) isnumerec(x) && isscalar(x) && (x>0));
+addParameter(p,'maximum_wavelength',max(wavelength),@(x) isnumerec(x) && isscalar(x) && (x>0));
+addParameter(p,'negative_data','offset',@(x) any(validatestring(x,{'offset','zero','remove'})));
+addParameter(p,'wavelength_interval',[],@(x) isnumeric(x) && isscalar(x) && (x>0));
+parse(p,varargin{:});
+settings=p.Results;
 
 % Initialize structure
 output.at_nw=[];
@@ -198,8 +178,6 @@ if min(absorption)<0
         case 'remove'
             wavelength=wavelength(absorption>0);
             absorption=absorption(absorption>0);
-        otherwise
-            error(['ERROR DAISEA: ' settings.negative_data ' is not an option for settings.negative_data. Enter ''offset'', ''zero'', or ''remove''.']);
     end
 end
 
