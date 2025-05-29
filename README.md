@@ -1,7 +1,7 @@
 # daisea2
 A package for decomposing total non-water absorption spectra into CDOM + non-algal particulates (adg) and phytoplankton absorption (aph).
 
-DAISEA2 is an update to the original DAISEA package. It utilizes genetic algorithms combined with Gaussian decomposition to separate total non-water absorption spectra into an estimate of adg and aph. DAISEA2 allows the user to select either an exponential or hyperbolic relationship for CDM. It is also able to handle spectra starting at or near 400 nm (e.g. AC-S data), rather than requiring total absorption down to 350 nm. 
+DAISEA2 is an update to the original DAISEA package. It utilizes genetic algorithms combined with Gaussian decomposition to separate total non-water absorption spectra into an estimate of adg and aph. DAISEA2 allows the user to select either an exponential or hyperbolic relationship for adg. It is also able to handle spectra starting at or near 400 nm (e.g. AC-S data), rather than requiring total absorption down to 350 nm. 
 
 The primary function is daisea2 (Derivative Analysis and Iterative Spectral Evaluation of Absorption). 
 
