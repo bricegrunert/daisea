@@ -13,59 +13,45 @@ Please see the manuscript: A hyperspectral approach for retrieving inherent opti
 *Sub-functions*
 
 *daisea2_get_started*
-
 Use this function first! It will get you started using provided example data. 
 
 *daisea_adg_ga*
-
 Genetic algorithm for initial fit of adg. 
 
 *daisea_apply_cdom_model*
-
 Calculate predicted value (yhat) after fitting adg. 
 
 *daisea_combined_fit_ga*
-
 Genetic algorithm for combined fit of adg and Gaussian decomposition of aph. 
 
 *daisea_combined_model_ga*
-
 Models of adg and Gaussian curves for use by the genetic algorithms. 
 
 *daisea_find_wavelengths*
-
 Checks for critical wavelengths required by daisea2. For example, data must exist between 400 nm and 700 nm. 
 
 *daisea_fit_cdom_nap*
-
 Least squares fitting of adg. 
 
 *daisea_gauss_peak_locations*
-
 Initial Gaussian decomposition of aph after initial fit of adg. 
 
 *daisea_gaussian_fit_ga*
-
 Genetic algorithm for Gaussian decomposition of aph alone. 
 
 *daisea_gaussian_fit*
-
 Optimizes a least squares fit of Gaussian decomposition of aph after daisea_gauss_peak_locations.
 
 *daisea_gaussian_model_ga*
-
 DAISEA models for Gaussian fits with genetic algorithm. 
 
 *daisea_initial_adg*
-
 Identify portion of the curve most associated with adg and perform initial least squares fit. 
 
 *daisea_wavelength_interval_check*
-
 DAISEA2 requires a consistent wavelength interval. It works best with an interval of 1 nm. This function checks to make sure the wavelength interval is consistent and deals with NaNs as per user input. 
 
 *daisea_models*
-
 Models for adg and Gaussian spectra. 
 
 ## **How to cite this package**
