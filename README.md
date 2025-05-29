@@ -16,7 +16,7 @@ Please see the manuscript: A hyperspectral approach for retrieving inherent opti
 Use this function first! It will get you started using provided example data. 
 
 
-## **Sub-functions***
+## **Sub-functions**
 
 *daisea_adg_ga*
 
